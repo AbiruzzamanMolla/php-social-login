@@ -1,11 +1,10 @@
     <!-- Footer -->
-    <footer class="page-footer font-small blue">
-
-        <!-- Copyright -->
-        <div class="footer-copyright text-center py-3">© 2018 Copyright:
-            <a href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a>
+    <footer class="footer">
+        <div class="container text-center">
+            <small>Copyright &copy; Your Website</small>
         </div>
-        <!-- Copyright -->
+    </footer>
+    <!-- Copyright -->
 
     </footer>
     <!-- Footer -->
