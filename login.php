@@ -1,5 +1,11 @@
+<?php include('fb-init.php'); ?>
 <?php
+include "db/conn.php";
 include "fnc/loginFunc.php";
+
+if(isset($_SESSION['access_token'])){
+    header('Location: profile.php');
+}
 
 if(isset($_POST['submit'])){
     $email = $_POST['email'];
@@ -13,19 +19,18 @@ if(isset($_POST['submit'])){
 ?>
 
 <?php include('inc/header.php'); ?>
-<?php include('fb-init.php'); ?>
+
 <div class="d-flex justify-content-center align-items-center container">
     <div class="row mt-1">
         <form action="" method="post">
             <h1 class="h3 mb-3">Please sign in</h1>
             <div class="form-group">
                 <label for="inputEmail" class="control-label">Enter Email</label>
-                <input type="email" class="form-control" name="email" id="inputEmail" aria-labelledby="emailnotification">
-                <small id="emailnotification" class="form-text text-muted">Enter Valid Email Id</small>
+                <input type="email" class="form-control" name="email" id="inputEmail">
             </div>
             <div class="form-group">
                 <label for="inputPassword" class="control-label">Enter Password</label>
-                <input type="password" name="password" class="form-control" id="inputPassword" aria-labelledby="passwordnotification">
+                <input type="password" name="password" class="form-control" id="inputPassword">
             </div>
 
             <button type="submit" name="submit" class="btn btn-block btn-success text-center">Login </button>

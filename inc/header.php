@@ -31,8 +31,8 @@
                     <a class="nav-link" href="#">Link</a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <button class="btn btn-outline-success text-white" type="submit">Logout</button>
-            </form>
+            <div class="my-2 my-lg-0">
+                <a href="logout.php" class="btn btn-danger text-white">Logout</a>
+            </div>
         </div>
     </nav>

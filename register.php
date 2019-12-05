@@ -1,4 +1,6 @@
 <?php
+session_start();
+include "db/conn.php";
 include "fnc/regFunc.php";
 
 if (isset($_POST['submit'])) {
@@ -17,12 +19,13 @@ if (isset($_POST['submit'])) {
 <?php include('inc/header.php'); ?>
 <div class="d-flex justify-content-center align-items-center container p-5">
     <div class="row mt-1">
-        <form action="">
+        <form action="" method="post">
             <h1 class="h3 mb-3">Please register</h1>
             <div class="form-group">
                 <label for="name" class="control-label">Enter Name</label>
-                <input type="text" name="name" class="form-control" id="name">
+                <input type="text" name="name" value="<?php echo isset($_SESSION['fb_id']) ? $_SESSION['name'] : ''; ?>" class="form-control" id="name" <?php echo isset($_SESSION['fb_id']) ? 'disabled' : ''; ?>>
             </div>
+            
             <div class="form-group">
                 <label for="inputEmail" class="control-label">Enter Email</label>
                 <input type="email" name="email" class="form-control" id="inputEmail">
@@ -37,7 +40,7 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="form-group">
                 <label for="inputPassword" name="password" class="control-label">Enter Password</label>
-                <input type="password" class="form-control" id="inputPassword">
+                <input type="password" name="password" class="form-control" id="inputPassword">
             </div>
 
             <button type="submit" name="submit" class="btn btn-block btn-success text-center">Register </button>

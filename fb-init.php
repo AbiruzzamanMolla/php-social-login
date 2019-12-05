@@ -15,8 +15,10 @@ $helper = $fb->getRedirectLoginHelper();
 $loginUrl = $helper->getLoginUrl('http://localhost/socialreg/login.php');
 
 try {
+    // get accessToken
     $accessToken = $helper->getAccessToken();
-    if($accessToken){
+    // set accessToken in session
+    if(isset($accessToken)){
         $_SESSION['access_token']= (string) $accessToken;
     }
 
