@@ -50,7 +50,7 @@ if (isset($_SESSION['access_token'])) {
             </div>
             <div class="form-group">
                 <label for="inputphone" class="control-label">Enter Phone</label>
-                <input type="number" name="text" value="<?php echo $row['phone']; ?>" class="form-control" id="inputphone">
+                <input type="text" name="phone" value="<?php echo $row['phone']; ?>" class="form-control" id="inputphone">
             </div>
             <div class="form-group">
                 <label for="inputPassword" name="password" class="control-label">Enter Password</label>
