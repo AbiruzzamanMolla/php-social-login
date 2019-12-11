@@ -38,17 +38,11 @@ if(isset($_POST['submit'])){
 
             <h1>Login with social media </h1>
             <div class="social-buttons text-center">
-                <a class="btn btn-social-icon btn-twitter">
-                    <span class="fa fa-twitter"></span>
-                </a>
                 <a href="<?php echo $loginUrl; ?>" class="btn btn-social-icon btn-facebook">
                     <span class="fa fa-facebook"></span>
                 </a>
                 <a class="btn btn-social-icon btn-google">
                     <span class="fa fa-google"></span>
-                </a>
-                <a class="btn btn-social-icon btn-linkedin">
-                    <span class="fa fa-linkedin"></span>
                 </a>
                 <a class="btn btn-social-icon btn-github">
                     <span class="fa fa-github"></span>
