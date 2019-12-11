@@ -1,4 +1,12 @@
 <?php include('fb-init.php'); ?>
+<?php include('google-init.php'); ?>
+<?php include('github-init.php'); ?>
+<?php
+if(!isset($_GET['code'])){
+    $authUrl = $provider->getAuthorizationUrl();
+    $_SESSION['oauth2state'] = $provider->getState();
+}
+?>
 <?php
 include "db/conn.php";
 include "fnc/loginFunc.php";
@@ -14,7 +22,6 @@ if(isset($_POST['submit'])){
     if(!empty($email) && !empty($password)){
         login($email, $password);
     }
-
 }
 ?>
 
@@ -41,10 +48,10 @@ if(isset($_POST['submit'])){
                 <a href="<?php echo $loginUrl; ?>" class="btn btn-social-icon btn-facebook">
                     <span class="fa fa-facebook"></span>
                 </a>
-                <a class="btn btn-social-icon btn-google">
+                <a href="<?php echo $google_client->createAuthUrl(); ?>" class="btn btn-social-icon btn-google">
                     <span class="fa fa-google"></span>
                 </a>
-                <a class="btn btn-social-icon btn-github">
+                <a href="<?php echo $authUrl; ?>" class="btn btn-social-icon btn-github">
                     <span class="fa fa-github"></span>
                 </a>
             </div>

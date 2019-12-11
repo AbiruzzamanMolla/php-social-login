@@ -42,9 +42,9 @@ if (isset($_GET["code"])) {
         }
     }
 }
-$login_button = '';
+$gg_login_button = '';
 if (!isset($_SESSION['access_token'])) {
-    $login_button = '<a class="btn btn-social-icon btn-google" href="' . $google_client->createAuthUrl() . '"><span class="fa fa-google"></span></a>';
+    $gg_login_button = '<a class="btn btn-social-icon btn-google" href="' . $google_client->createAuthUrl() . '"><span class="fa fa-google"></span></a>';
 }
 
 ?>
@@ -55,14 +55,14 @@ if (!isset($_SESSION['access_token'])) {
     <br />
     <div class="panel panel-default">
         <?php
-        if ($login_button == '') {
+        if ($gg_login_button == '') {
             echo '<div class="panel-heading">Welcome User</div><div class="panel-body">';
             echo '<img src="' . $_SESSION["user_image"] . '" class="img-thumbnail rounded mx-auto d-block" heigh="900px" width="300px" />';
             echo '<h3><b>Name :</b> ' . $_SESSION['user_first_name'] . ' ' . $_SESSION['user_last_name'] . '</h3>';
             echo '<h3><b>Email :</b> ' . $_SESSION['user_email_address'] . '</h3>';
             echo '<h3><a href="logout.php">Logout</h3></div>';
         } else {
-            echo '<div align="center">' . $login_button . '</div>';
+            echo '<div align="center">' . $gg_login_button . '</div>';
         }
         ?>
     </div>
