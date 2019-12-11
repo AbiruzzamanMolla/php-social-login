@@ -11,7 +11,7 @@ if(!isset($_GET['code'])){
 include "db/conn.php";
 include "fnc/loginFunc.php";
 
-if(isset($_SESSION['access_token'])){
+if(isset($_SESSION['fb_access_token'])){
     header('Location: profile.php');
 }
 

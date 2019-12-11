@@ -19,7 +19,7 @@ try {
     $accessToken = $helper->getAccessToken();
     // set accessToken in session
     if(isset($accessToken)){
-        $_SESSION['access_token']= (string) $accessToken;
+        $_SESSION['fb_access_token']= (string) $accessToken;
     }
 
 } catch (\Facebook\Exceptions\FacebookResponseException $e) {

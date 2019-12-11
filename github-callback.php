@@ -1,6 +1,8 @@
 <?php
 //Include Google Client Library for PHP autoload file
-session_start();
+if (!session_id()) {
+    session_start();
+}
 require_once __DIR__ . '/vendor/autoload.php';
 
 $provider = new League\OAuth2\Client\Provider\Github([
@@ -12,7 +14,11 @@ $provider = new League\OAuth2\Client\Provider\Github([
 if (!isset($_GET['code'])) {
 
 // If we don't have an authorization code then get one
-$authUrl = $provider->getAuthorizationUrl();
+// $authUrl = $provider->getAuthorizationUrl();
+$options = [
+        'scope' => ['user', 'user:email', 'repo']
+    ];
+$authorizationUrl = $provider->getAuthorizationUrl($options);
 $_SESSION['oauth2state'] = $provider->getState();
 header('Location: '.$authUrl);
 exit;
@@ -35,9 +41,7 @@ try {
 
 // We got an access token, let's now get the user's details
 $user = $provider->getResourceOwner($token);
-
-// Use these details to create a new profile
-printf('Hello %s!', $user->getNickname());
+$_SESSION['git_user'] = $user->getNickname();
 
 } catch (Exception $e) {
 
@@ -46,5 +50,6 @@ exit('Oh dear...');
 }
 
 // Use this to interact with an API on the users behalf
-echo $token->getToken();
+$_SESSION['git_access_token'] = $token->getToken();
+header("Location: profile.php");
 }

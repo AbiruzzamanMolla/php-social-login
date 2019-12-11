@@ -6,7 +6,7 @@ function register($name, $email, $phone, $password){
     $result = $conn->query($query);
 
     if($result){
-        echo "Registation done!";
+        header("Location: login.php");
     }
 }
 

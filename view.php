@@ -1,65 +1,69 @@
-<?php
+<?php include('inc/header.php'); 
 include "db/conn.php";
-include "fb-init.php";
-
-if (isset($_SESSION['fb_access_token'])) {
-    $fb->setDefaultAccessToken($_SESSION['fb_access_token']);
-    $res = $fb->get('/me?local=en_US&fields=name,email');
-
-    $user = $res->getGraphUser();
-    $name = $user->getField('name');
-    $_SESSION['name'] = $name;
-    $fbid = $user->getField('id');
-
-    $query = "SELECT * FROM `users` WHERE `fb_id` = '$fbid'";
-    $result = $conn->query($query);
-    if ($result->num_rows == 1) {
-        $row = $result->fetch_assoc();
-        if (is_null($row['email'])) {
-            if (isset($_POST['update'])) {
-                $email = $_POST['email'];
-                $phone = $_POST['phone'];
-                $password = $_POST['password'];
-                $id = $_POST['id'];
-
-                $query = "UPDATE `users` SET `email` = '$email', `phone` = '$phone', `password` = '$password' WHERE `users`.`id` = $id";
-                $result = $conn->query($query);
-                if ($result) {
-                    header("Location: index.php");
-                }
-            }
-        }
-    } else {
-        $query = "INSERT INTO `users` (`name`, `fb_id`) VALUES ('$name', '$fbid')";
-        $result = $conn->query($query);
-        header("Location: profile.php");
-    }
-}
-
 ?>
 
-<?php include('inc/header.php'); ?>
 <div class="d-flex justify-content-center align-items-center container p-5">
-    <div class="row mt-1">
-        <form action="" method="post">
-            <h1 class="h3 mb-3"><?php echo isset($_SESSION['fb_id']) ? $_SESSION['name'] : $_SESSION['name']; ?> Complete your profile</h1>
-            <div class="form-group">
-                <label for="inputEmail" class="control-label">Enter Email</label>
-                <input type="email" name="email" value="<?php echo $row['email']; ?>" class="form-control" id="inputEmail">
-            </div>
-            <div class="form-group">
-                <label for="inputphone" class="control-label">Enter Phone</label>
-                <input type="text" name="phone" value="<?php echo $row['phone']; ?>" class="form-control" id="inputphone">
-            </div>
-            <div class="form-group">
-                <label for="inputPassword" name="password" class="control-label">Enter Password</label>
-                <input type="password" name="password" class="form-control" id="inputPassword">
-            </div>
-            <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-            <button type="submit" name="update" class="btn btn-block btn-success text-center">Save Information</button>
-        </form>
+    <div class="row">
+    <div class="card text-center">
+  <div class="card-header">
+        <h1>Profile View</h1>
+  </div>
+  <div class="card-body">
+      <?php
+    if($_SESSION['uid']){
+        $id = $_SESSION['uid'];
+        $query = "SELECT * FROM `users` WHERE `id` = $id";
+        $result = $conn->query($query);
+        if ($row = $result->fetch_assoc()) {
+        ?>
+        <?php
+        if(!empty($row['img']) || !is_null($row['img'])){
+            echo "
+            <img src='' class='img-fluid text-center' />
+            ";
+        }
+        ?>
+        <h5 class="card-title text-bold"><?php echo $row['name']; ?></h5>
+        <table class="table table-border">
+        <tbody>
+        <tr>
+            <td><b>Email: </b></td>
+            <td><?php echo $row['email']; ?></td>
+        </td><tr>
+            <td><b>Phone: </b></td>
+            <td><?php echo $row['phone']; ?></td>
+        </td><tr>
+            <td><b>Social Login: </b></td>
+            <td> <p class="social-buttons text-center">
+            <?php 
+            if(!empty($row['fb_id']) || !is_null($row['fb_id'])){
+                echo "<button class='btn btn-social-icon btn-facebook m-1'><span class='fa fa-facebook'></span></button>";
+            }
+            if($row['google'] != 0){
+                echo "<button class='btn btn-social-icon btn-google m-1'><span class='fa fa-google'></span></button>";
+            } 
+            if(!empty($row['github_user']) || !is_null($row['github_user'])){
+                echo "<button class='btn btn-social-icon btn-github m-1'><span class='fa fa-github'></span></button>";
+            }
+            ?>
+            
+            </p></td>
+        </td>
+        </tbody>
+        <table>
+        <p class="card-text"></p>
+        <?php
+        } else {
+            echo '<h1>ERROR!</h1>'; die();
+        }
+    }
+    ?>
+  </div>
+  <div class="card-footer text-muted">
+    <a href="logout.php" class="btn btn-danger">Logout</a>
+  </div>
+</div>
     </div>
 </div>
-
 
 <?php include('inc/footer.php'); ?>

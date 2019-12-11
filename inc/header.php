@@ -17,22 +17,23 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand text-capitalize" href="#">Social Login System</a>
+        <a class="navbar-brand text-capitalize" href="index.php">Social Login System</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
             </ul>
             <div class="my-2 my-lg-0">
-                <a href="logout.php" class="btn btn-danger text-white">Logout</a>
+                <?php
+                if(!session_id()){
+                    session_start();
+                }
+                if (isset($_SESSION['fb_access_token']) || isset($_SESSION['g_access_token']) || isset($_SESSION['git_access_token']) || isset($_SESSION['id'])) {
+                    echo '<a href="logout.php" class="btn btn-danger text-white">Logout</a>';
+                }
+                ?>
             </div>
         </div>
     </nav>
